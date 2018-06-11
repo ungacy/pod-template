@@ -15,7 +15,7 @@ module Pod
 
       keep_demo = configurator.ask_with_answers("Would you like to include a demo application with your library", ["Yes", "No"]).to_sym
 
-      framework = configurator.ask_with_answers("Which testing frameworks will you use", ["Specta", "Kiwi", "None"]).to_sym
+      framework = configurator.ask_with_answers("Which testing frameworks will you use", ["None", "Specta", "Kiwi"]).to_sym
       case framework
         when :specta
           configurator.add_pod_to_podfile "Specta"
@@ -54,22 +54,22 @@ module Pod
 
       prefix = nil
 
-      loop do
-        prefix = configurator.ask("What is your class prefix")
-
-        if prefix.include?(' ')
-          puts 'Your class prefix cannot contain spaces.'.red
-        else
-          break
-        end
-      end
+      # loop do
+      #   prefix = configurator.ask("What is your class prefix")
+      #
+      #   if prefix.include?(' ')
+      #     puts 'Your class prefix cannot contain spaces.'.red
+      #   else
+      #     break
+      #   end
+      # end
 
       Pod::ProjectManipulator.new({
         :configurator => @configurator,
         :xcodeproj_path => "templates/ios/Example/PROJECT.xcodeproj",
         :platform => :ios,
         :remove_demo_project => (keep_demo == :no),
-        :prefix => prefix
+        :prefix => 'SI'
       }).run
 
       # There has to be a single file in the Classes dir
