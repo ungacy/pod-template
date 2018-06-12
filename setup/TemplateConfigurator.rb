@@ -95,12 +95,19 @@ module Pod
       ensure_carthage_compatibility
       reinitialize_git_repo
       run_pod_install
-
+      push_code_to_remote
+      
       @message_bank.farewell_message
     end
 
     #----------------------------------------#
 
+
+    def push_code_to_remote
+      `git remote add origin git@git.superid.cn:iOS/#{pod_name}.git`
+      `git push -u origin master`
+    end
+    
     def ensure_carthage_compatibility
       FileUtils.ln_s('Example/Pods/Pods.xcodeproj', '_Pods.xcodeproj')
     end
